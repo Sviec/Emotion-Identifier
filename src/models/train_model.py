@@ -12,18 +12,18 @@ VALIDATION_SIZE = 10009
 
 def train_model(model_name):
     image_height, image_width = 224, 224
-    initial_epochs = 10
-    total_epochs = 50
+    initial_epochs = 5
+    total_epochs = 30
     num_classes = 9
 
-    train_generator, validation_generator, _ = load_data(BATCH_SIZE, image_height, image_width, total_epochs)
+    train_generator, validation_generator, _ = load_data(BATCH_SIZE, image_height, image_width)
 
     model = build_model(model_name, image_height, image_width, num_classes)
 
     return model, train_generator, validation_generator, total_epochs, initial_epochs
 
 
-def fit_model(model_name, model, train_generator, validation_generator, epochs, lr=0.0001, is_freeze=False):
+def fit_model(model_name, model, train_generator, validation_generator, epochs, lr=0.001, is_freeze=False):
     if is_freeze:
         model.trainable = True
         if model_name == "efficientnet":
@@ -31,8 +31,7 @@ def fit_model(model_name, model, train_generator, validation_generator, epochs, 
         elif model_name == "convnextsmall":
             freeze_layers_cns(model)
 
-    initial_learning_rate = lr
-    lr_schedule = ExponentialDecay(initial_learning_rate, decay_steps=100000, decay_rate=0.96)
+    lr_schedule = ExponentialDecay(lr, decay_steps=100000, decay_rate=0.96)
     optimizer = Adam(learning_rate=lr_schedule)
 
     model.compile(
@@ -42,7 +41,7 @@ def fit_model(model_name, model, train_generator, validation_generator, epochs, 
     )
 
     checkpoint = ModelCheckpoint(
-        f'results/{model_name}/checkpoint/{model_name}_ckpt.keras',
+        f'../results/{model_name}/checkpoint/{model_name}_ckpt.keras',
         monitor='val_loss',
         verbose=1,
         save_best_only=True
