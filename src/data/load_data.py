@@ -1,38 +1,30 @@
 import tensorflow as tf
+from config import TRAIN_DATA_DIR, IMG_SIZE, BATCH_SIZE
 
 
-def load_data(batch_size, image_height, image_width, data_dir='data/raw'):
+def load_data():
     train_generator = tf.keras.preprocessing.image_dataset_from_directory(
-        f'../{data_dir}/train',
+        TRAIN_DATA_DIR,
         labels='inferred',
         label_mode='categorical',
         shuffle=True,
-        image_size=(image_height, image_width),
-        batch_size=batch_size,
+        image_size=IMG_SIZE,
+        batch_size=BATCH_SIZE,
         seed=42,
         validation_split=0.2,
         subset="training",
     ).repeat().prefetch(buffer_size=tf.data.AUTOTUNE)
 
     validation_generator = tf.keras.preprocessing.image_dataset_from_directory(
-        f'../{data_dir}/train',
+        TRAIN_DATA_DIR,
         labels='inferred',
         label_mode='categorical',
         shuffle=True,
-        image_size=(image_height, image_width),
-        batch_size=batch_size,
+        image_size=IMG_SIZE,
+        batch_size=BATCH_SIZE,
         seed=42,
         validation_split=0.2,
         subset="validation",
     ).repeat().prefetch(buffer_size=tf.data.AUTOTUNE)
 
-    test_generator = tf.keras.preprocessing.image_dataset_from_directory(
-        f'../{data_dir}/test_kaggle',
-        labels=None,
-        shuffle=False,
-        image_size=(image_height, image_width),
-        batch_size=batch_size,
-        seed=42,
-    )
-
-    return train_generator, validation_generator, test_generator
+    return train_generator, validation_generator

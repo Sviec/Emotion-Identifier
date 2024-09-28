@@ -1,8 +1,8 @@
-import numpy as np
 import matplotlib.pyplot as plt
+from config import VISUAL
 
 
-def plot_training_history(history):
+def plot_training_history(history, fine=False):
     acc = history.history['categorical_accuracy']
     val_acc = history.history['val_categorical_accuracy']
     loss = history.history['loss']
@@ -25,4 +25,7 @@ def plot_training_history(history):
     plt.ylim([0, 3.0])
     plt.title('Training and Validation Loss')
     plt.xlabel('epoch')
-    plt.show()
+    if fine:
+        plt.savefig(f'{VISUAL}/training_fine_plot.png')
+    else:
+        plt.savefig(f'{VISUAL}/training_plot.png')
