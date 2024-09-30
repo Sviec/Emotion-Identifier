@@ -3,4 +3,6 @@ from src.scripts import test
 from config import EFFICIENTNET
 
 if __name__ == '__main__':
+    model, history = train(EFFICIENTNET)
+    train_fine(EFFICIENTNET)
     test(EFFICIENTNET)
