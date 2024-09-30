@@ -1,5 +1,4 @@
 import pickle
-import tensorflow as tf
 from src.model.modeling.fit_model import train_model, fit_model, fit_fine_model
 from src.visualization.evaluate import plot_training_history
 from src.model.preprocessing.hyperopt import run_optimization
@@ -18,12 +17,11 @@ def train(model_name):
     with open(f'{HISTORY_DIR}/history.pkl', 'wb') as f:
         pickle.dump(history.history, f)
 
+    return model, history
 
-def train_fine(model_name):
+
+def train_fine(model_name, model, history):
     train_generator, validation_generator = load_data()
-    model = tf.keras.models.load_model(f'{EFFICIENTNET_DIR}')
-    with open(f'{HISTORY_DIR}/history.pkl', 'rb') as f:
-        history = pickle.load(f)
 
     model_fine, history_fine = fit_fine_model(
         model_name, model, history,

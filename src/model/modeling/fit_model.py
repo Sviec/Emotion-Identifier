@@ -74,7 +74,6 @@ def fit_fine_model(model_name, model, history, train_generator, validation_gener
         loss='categorical_crossentropy',
         metrics=['categorical_accuracy']
     )
-
     history_fine = model.fit(
         train_generator,
         steps_per_epoch=TRAIN_SIZE // BATCH_SIZE,
