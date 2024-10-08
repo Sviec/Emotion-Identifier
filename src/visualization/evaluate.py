@@ -3,6 +3,12 @@ from config import VISUAL
 
 
 def plot_training_history(history, fine=False):
+    """
+    Функция для построения динамики валидационной и тренировочной точности и ошибки при обучении модели
+
+    :param history: History
+    :param fine: bool
+    """
     acc = history.history['categorical_accuracy']
     val_acc = history.history['val_categorical_accuracy']
     loss = history.history['loss']

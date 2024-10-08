@@ -6,6 +6,18 @@ from src.model.preprocessing.preprocess import get_augmentation
 
 
 def create_base_model(image_height, image_width):
+    """
+    Создает базовую модель на основе EfficientNetV2B2 с предобученными весами на ImageNet без верхних слоев
+
+    :param image_height: int
+      Высота входного изображения
+    :param image_width: int
+      Ширина входного изображения
+
+    :return:
+      base_model: Базовая модель EfficientNetV2B2
+    :rtype: Model
+    """
     base_model = EfficientNetV2B2(
         weights='imagenet',
         include_top=False,

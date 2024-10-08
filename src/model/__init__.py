@@ -6,7 +6,18 @@ from config import EFFICIENTNET_DIR, EFFICIENTNET_FINE_DIR, HISTORY_DIR
 from src.data.load_data import load_data
 
 
-def train(model_name):
+def train(model_name: str):
+    """
+    Функция запускает загрузку данных, обучает модель, строит график динамики точности и валидационной ошибки,
+    сохраняет в формате keras в файлы проекта и записывает историю обучению
+
+    :param model_name: Наименование модели
+    :type model_name: str
+
+    :return: Созданная модель, история обучения
+    :rtype: model: Model
+    :rtype: history: History
+    """
     model, train_generator, validation_generator = train_model()
     model, history = fit_model(model_name, model, train_generator, validation_generator)
 
@@ -20,7 +31,14 @@ def train(model_name):
     return model, history
 
 
-def train_fine(model_name, model, history):
+def train_fine(model_name: str, model, history):
+    """
+    Запуск Fine Tuning, сохранение обученной модели в файлы проекта
+
+    :param model_name: str
+    :param model: Model
+    :param history: History
+    """
     train_generator, validation_generator = load_data()
 
     model_fine, history_fine = fit_fine_model(

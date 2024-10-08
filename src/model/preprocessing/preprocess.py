@@ -2,6 +2,13 @@ import tensorflow as tf
 
 
 def get_augmentation():
+    """
+    Создает последовательность аугментаций для изображений, включая геометрические и цветовые преобразования
+
+    :return:
+        augmentation: Секвенция аугментаций
+    :rtype: Sequential
+    """
     return tf.keras.Sequential([
         # Геометрические аугментации
         tf.keras.layers.RandomFlip('horizontal'),

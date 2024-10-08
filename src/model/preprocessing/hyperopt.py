@@ -8,7 +8,17 @@ import numpy as np
 
 
 def optimize_model(params):
+    """
+    Оптимизирует модель с использованием переданных гиперпараметров и
+    возвращает отрицательное значение валидационной точности
 
+    :param params: dict
+        Словарь с гиперпараметрами, включая 'learning_rate', 'dropout_rate' и 'batch_size'
+
+    :return:
+        val_accuracy: Отрицательное значение максимальной валидационной точности (для минимизации)
+    :rtype: float
+    """
     train_generator, validation_generator = load_data()
 
     model = build_model(
@@ -37,6 +47,13 @@ def optimize_model(params):
 
 
 def run_optimization():
+    """
+    Запускает процесс оптимизации гиперпараметров с использованием метода TPE
+
+    :return:
+        best: Лучшие найденные гиперпараметры
+    :rtype: dict
+    """
     search_space = {
         'learning_rate': hp.loguniform('learning_rate', np.log(1e-5), np.log(1e-3)),
         'dropout_rate': hp.uniform('dropout_rate', 0.2, 0.6),
