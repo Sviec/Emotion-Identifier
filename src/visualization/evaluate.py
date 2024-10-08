@@ -4,10 +4,12 @@ from config import VISUAL
 
 def plot_training_history(history, fine=False):
     """
-    Функция для построения динамики валидационной и тренировочной точности и ошибки при обучении модели
+    Функция для построения графиков динамики валидационной и тренировочной точности
+    и потерь при обучении модели
 
-    :param history: History
-    :param fine: bool
+    :param history: History, содержащий данные о точности и потерях
+                    на тренировочных и валидационных наборах данных
+    :param fine: bool, указывает, нужно ли сохранять график для тонкой настройки модели (fine-tuning)
     """
     acc = history.history['categorical_accuracy']
     val_acc = history.history['val_categorical_accuracy']

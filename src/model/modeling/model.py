@@ -26,7 +26,20 @@ def create_base_model(image_height, image_width):
     return base_model
 
 
-def build_model(image_height, image_width, num_classes, dropout=0.4):
+def build_model(image_height, image_width, num_classes):
+    """
+    Создает модель классификации изображений на основе EfficientNetV2
+
+    :param image_height: int
+        Высота входных изображений
+    :param image_width: int
+        Ширина входных изображений
+    :param num_classes: int
+        Количество классов для классификации
+
+    :return: Model
+        Созданная модель с заданной архитектурой
+    """
     base_model = create_base_model(image_height, image_width)
 
     base_model.trainable = False
